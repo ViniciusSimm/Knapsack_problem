@@ -1,8 +1,8 @@
 import random
 import numpy as np
-from model import Model
+from tools import Tools
 
-class InitialConstructor(Model):
+class InitialConstructor(Tools):
 
     def index_ordering(self):
         lista = self.weights

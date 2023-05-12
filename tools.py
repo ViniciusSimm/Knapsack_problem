@@ -1,6 +1,6 @@
 import numpy as np
 
-class Model():
+class Tools():
     def __init__(self,weights,rest,capacities):
         self.weights = weights
         self.rest = rest
