@@ -62,13 +62,22 @@ class Model():
 
 
 if __name__ == "__main__":
-    for i in range(3):
-        data = WEING8()
-        N_SOLUTIONS = 5 # number of vectors
-        ALPHA = 0.8 # proportion of 0s
+    weing = [WEING1(),WEING2(),WEING3(),WEING4(),WEING5(),WEING6(),WEING7(),WEING8()]
+    weish = [WEISH01(),WEISH02(),WEISH03(),WEISH04(),WEISH05(),WEISH06(),WEISH07(),WEISH08(),WEISH09(),WEISH10(),
+             WEISH11(),WEISH12(),WEISH13(),WEISH14(),WEISH15(),WEISH16(),WEISH17(),WEISH18(),WEISH19(),WEISH20(),
+             WEISH21(),WEISH22(),WEISH23(),WEISH24(),WEISH25(),WEISH26(),WEISH27(),WEISH28(),WEISH29(),WEISH30()]
+    sento = [SENTO1(),SENTO2()]
+    pb = [PB1(),PB2(),PB4(),PB5(),PB6(),PB7()]
+    hp = [HP1(),HP2()]
 
-        model = Model(data)
-        model.GRASP(n_solutions=N_SOLUTIONS,alpha=ALPHA)
+    for data in hp:
+        for i in range(3):
+            data = data
+            N_SOLUTIONS = 5 # number of vectors
+            ALPHA = 0.8 # proportion of 0s
+
+            model = Model(data)
+            model.GRASP(n_solutions=N_SOLUTIONS,alpha=ALPHA)
 
 
 
