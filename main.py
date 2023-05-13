@@ -73,7 +73,7 @@ if __name__ == "__main__":
     for data in hp:
         for i in range(3):
             data = data
-            N_SOLUTIONS = 5 # number of vectors
+            N_SOLUTIONS = 10 # number of vectors
             ALPHA = 0.8 # proportion of 0s
 
             model = Model(data)
