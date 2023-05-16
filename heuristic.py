@@ -18,3 +18,11 @@ class Heuristic():
             second_neighbors = self.create_neighbors_1t(used=sol)
             neighbors.extend(second_neighbors)
         return neighbors
+
+    def create_neighbors_3t(self,used):
+        second_neighbors = self.create_neighbors_2t(used)
+        neighbors = []
+        for sol in second_neighbors:
+            second_neighbors = self.create_neighbors_1t(used=sol)
+            neighbors.extend(second_neighbors)
+        return neighbors

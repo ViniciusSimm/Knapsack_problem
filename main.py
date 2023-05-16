@@ -27,10 +27,10 @@ class Model():
         for sol in solution_list:
             used = sol.copy()
             s_current = self.tools.evaluate(used)
-            neighbors = self.heuristic.create_neighbors_2t(used)
+            neighbors = self.heuristic.create_neighbors_3t(used)
             random.shuffle(neighbors)
 
-            print("Random Start Solution: {} \nCost: {}".format(used,s_current))
+            # print("Random Start Solution: {} \nCost: {}".format(used,s_current))
 
             for i in range(len(neighbors)):
                 n = neighbors[i]
@@ -40,7 +40,7 @@ class Model():
                         used = n
                         s_current = s_proposed
 
-                        neighbors = self.heuristic.create_neighbors_2t(used)
+                        neighbors = self.heuristic.create_neighbors_3t(used)
                         random.shuffle(neighbors)
                         i = 0
 
@@ -48,14 +48,14 @@ class Model():
             local_optimas.append((used,s_current))
         
         lista_ordenada = sorted(local_optimas, key=lambda x: x[1], reverse=True)
-        print(lista_ordenada)
-        print(self.data.optimum)
+        # print(lista_ordenada)
+        # print(self.data.optimum)
 
         final_time = time.time()
 
         with open('GRASP.csv', 'a') as f_object:
             writer_object = writer(f_object)
-            List = [self.data.name_data,n_solutions,alpha,lista_ordenada[0][0],lista_ordenada[0][1],(self.data.optimum-lista_ordenada[0][1])/self.data.optimum,final_time-start_time]
+            List = [self.data.name_data,n_solutions,alpha,lista_ordenada[0][0],lista_ordenada[0][1],(self.data.optimum-lista_ordenada[0][1])/self.data.optimum,final_time-start_time,'3t']
             writer_object.writerow(List)
             f_object.close()    
 
@@ -73,8 +73,8 @@ if __name__ == "__main__":
     for data in hp:
         for i in range(3):
             data = data
-            N_SOLUTIONS = 10 # number of vectors
-            ALPHA = 0.9 # proportion of 0s
+            N_SOLUTIONS = 5 # number of vectors
+            ALPHA = 0.8 # proportion of 0s
 
             model = Model(data)
             model.GRASP(n_solutions=N_SOLUTIONS,alpha=ALPHA)
