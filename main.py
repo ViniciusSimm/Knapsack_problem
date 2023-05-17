@@ -69,19 +69,21 @@ class Model():
 
         end_indicator = True
         while end_indicator:
-            print(solution_list)
+            # print(solution_list)
             solution_list_results = [(i,self.tools.evaluate(i)) for i in solution_list]
             best_current_solution = self.constructor.tuple_ordering(solution_list_results)[-1]
+            print(best_current_solution)
             genetic_solutions = self.heuristic.create_neighbors_genetic(n_solutions=n_solutions,solution_list=solution_list,parts=parts,tool=self.tools)
             genetic_solutions_results = [(i,self.tools.evaluate(i)) for i in genetic_solutions]
             genetic_solutions_results = self.constructor.tuple_ordering(genetic_solutions_results)
+            print(genetic_solutions_results)
             
-            if genetic_solutions_results[-1][1] < best_current_solution[1]:
+            if genetic_solutions_results[-1][1] <= best_current_solution[1]:
                 end_indicator = False
                 best_vector = best_current_solution[0]
                 best_score = best_current_solution[1]
             else:
-                results = genetic_solutions_results[:n_genetic_output]
+                results = genetic_solutions_results[-1*n_genetic_output:]
                 results = [np.array(i[0]) for i in results]
                 rand = random.choices(solution_list,k=n_solutions-n_genetic_output)
                 for cel in rand:
@@ -136,4 +138,4 @@ if __name__ == "__main__":
 
 
     model = Model(WEING1())
-    model.genetic(n_solutions=6,alpha=0.8,parts=2,n_genetic_output=5)
+    model.genetic(n_solutions=6,alpha=0.6,parts=2,n_genetic_output=5)
