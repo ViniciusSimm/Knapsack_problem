@@ -10,7 +10,6 @@ class Tools():
         mult = np.multiply(self.rest,used)
         sum = np.sum(mult,axis=1)
         diff = self.capacities - sum
-        print(diff)
         if any(diff < 0):
             return False
         else:
@@ -19,5 +18,4 @@ class Tools():
     def evaluate(self,used):
         mult = np.multiply(self.weights,used)
         sum = np.sum(mult)
-        print(sum)
         return sum

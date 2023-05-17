@@ -1,6 +1,7 @@
 import random
 from csv import writer
 import time
+import numpy as np
 
 from constructor import InitialConstructor
 from heuristic import Heuristic
@@ -59,74 +60,80 @@ class Model():
             writer_object.writerow(List)
             f_object.close()    
 
+    def genetic(self,n_solutions,alpha,parts,n_genetic_output):
+        start_time = time.time()
+
+        genetic_solutions = []
+        print(self.data.name_data)
+        solution_list = self.constructor.random_constructor(n_solutions=n_solutions,alpha=alpha)
+
+        end_indicator = True
+        while end_indicator:
+            print(solution_list)
+            solution_list_results = [(i,self.tools.evaluate(i)) for i in solution_list]
+            best_current_solution = self.constructor.tuple_ordering(solution_list_results)[-1]
+            genetic_solutions = self.heuristic.create_neighbors_genetic(n_solutions=n_solutions,solution_list=solution_list,parts=parts,tool=self.tools)
+            genetic_solutions_results = [(i,self.tools.evaluate(i)) for i in genetic_solutions]
+            genetic_solutions_results = self.constructor.tuple_ordering(genetic_solutions_results)
+            
+            if genetic_solutions_results[-1][1] < best_current_solution[1]:
+                end_indicator = False
+                best_vector = best_current_solution[0]
+                best_score = best_current_solution[1]
+            else:
+                results = genetic_solutions_results[:n_genetic_output]
+                results = [np.array(i[0]) for i in results]
+                rand = random.choices(solution_list,k=n_solutions-n_genetic_output)
+                for cel in rand:
+                    results.append(cel)
+                solution_list = results.copy()
+
+        final_time = time.time()
+
+        with open('genetic.csv', 'a') as f_object:
+            writer_object = writer(f_object)
+            List = [self.data.name_data,n_solutions,alpha,best_vector,best_score,(self.data.optimum-best_score)/self.data.optimum,final_time-start_time,parts,n_genetic_output]
+            writer_object.writerow(List)
+            f_object.close()
+
+        # a = 0
+        # while a < n_solutions:
+        #     b = a+1
+        #     while b < n_solutions:
+        #         print(str(a) + '-----' + str(b))
+        #         subv1,subv2 = self.heuristic.combine_two_vectors(vec1=solution_list[a],vec2=solution_list[b],parts=parts)
+
+        #         if self.tools.check_constrains(subv1):
+        #             genetic_solutions.append(subv1)
+                
+        #         if self.tools.check_constrains(subv2):
+        #             genetic_solutions.append(subv2)
+
+        #         b = b + 1
+        #     a = a + 1
+
+
+
 
 
 if __name__ == "__main__":
-    weing = [WEING1(),WEING2(),WEING3(),WEING4(),WEING5(),WEING6(),WEING7(),WEING8()]
-    weish = [WEISH01(),WEISH02(),WEISH03(),WEISH04(),WEISH05(),WEISH06(),WEISH07(),WEISH08(),WEISH09(),WEISH10(),
-             WEISH11(),WEISH12(),WEISH13(),WEISH14(),WEISH15(),WEISH16(),WEISH17(),WEISH18(),WEISH19(),WEISH20(),
-             WEISH21(),WEISH22(),WEISH23(),WEISH24(),WEISH25(),WEISH26(),WEISH27(),WEISH28(),WEISH29(),WEISH30()]
-    sento = [SENTO1(),SENTO2()]
-    pb = [PB1(),PB2(),PB4(),PB5(),PB6(),PB7()]
-    hp = [HP1(),HP2()]
+    # weing = [WEING1(),WEING2(),WEING3(),WEING4(),WEING5(),WEING6(),WEING7(),WEING8()]
+    # weish = [WEISH01(),WEISH02(),WEISH03(),WEISH04(),WEISH05(),WEISH06(),WEISH07(),WEISH08(),WEISH09(),WEISH10(),
+    #          WEISH11(),WEISH12(),WEISH13(),WEISH14(),WEISH15(),WEISH16(),WEISH17(),WEISH18(),WEISH19(),WEISH20(),
+    #          WEISH21(),WEISH22(),WEISH23(),WEISH24(),WEISH25(),WEISH26(),WEISH27(),WEISH28(),WEISH29(),WEISH30()]
+    # sento = [SENTO1(),SENTO2()]
+    # pb = [PB1(),PB2(),PB4(),PB5(),PB6(),PB7()]
+    # hp = [HP1(),HP2()]
 
-    for data in hp:
-        for i in range(3):
-            data = data
-            N_SOLUTIONS = 5 # number of vectors
-            ALPHA = 0.8 # proportion of 0s
+    # for data in hp:
+    #     for i in range(3):
+    #         data = data
+    #         N_SOLUTIONS = 5 # number of vectors
+    #         ALPHA = 0.8 # proportion of 0s
 
-            model = Model(data)
-            model.GRASP(n_solutions=N_SOLUTIONS,alpha=ALPHA)
-
-
-
-# data = WEING1()
-# tools = Tools(weights=data.weights,rest=data.rest,capacities=data.capacities)
-# constructor = InitialConstructor(weights=data.weights,rest=data.rest,capacities=data.capacities)
-# heuristic = Heuristic()
-
-# N_SOLUTIONS = 5 # number of vectors
-# ALPHA = 0.8 # proportion of 0s
-
-# print(data.name_data)
-
-# solution_list = constructor.random_constructor(n_solutions=N_SOLUTIONS,alpha=ALPHA)
-
-# local_optimas = []
-
-# for sol in solution_list:
-
-#     used = sol.copy()
-#     s_current = tools.evaluate(used)
-#     neighbors = heuristic.create_neighbors_2t(used)
-#     random.shuffle(neighbors)
-
-#     print("Random Start Solution: {} \nCost: {}".format(used,s_current))
-
-#     for i in range(len(neighbors)):
-#         n = neighbors[i]
-#         if tools.check_constrains(n):
-#             s_proposed = tools.evaluate(n)
-#             if s_proposed > s_current:
-#                 used = n
-#                 s_current = s_proposed
-
-#                 neighbors = heuristic.create_neighbors_2t(used)
-#                 random.shuffle(neighbors)
-#                 i = 0
-            
-#     print("Random Start Solution: {} \nCost: {}".format(used,s_current))
-
-#     local_optimas.append((used,s_current))
+    #         model = Model(data)
+    #         model.GRASP(n_solutions=N_SOLUTIONS,alpha=ALPHA)
 
 
-# lista_ordenada = sorted(local_optimas, key=lambda x: x[1], reverse=True)
-# print(lista_ordenada)
-# print(data.optimum)
-
-# with open('GRASP.csv', 'a') as f_object:
-#     writer_object = writer(f_object)
-#     List = [data.name_data,N_SOLUTIONS,ALPHA,lista_ordenada[0][0],lista_ordenada[0][1],(data.optimum-lista_ordenada[0][1])/data.optimum]
-#     writer_object.writerow(List)
-#     f_object.close()
+    model = Model(WEING1())
+    model.genetic(n_solutions=6,alpha=0.8,parts=2,n_genetic_output=5)

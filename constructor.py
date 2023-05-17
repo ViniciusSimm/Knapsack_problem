@@ -10,6 +10,9 @@ class InitialConstructor(Tools):
         lista_ordenada = [lista[i] for i in indices_ordenados]
         return lista_ordenada, indices_ordenados
 
+    def tuple_ordering(self,vector):
+         return sorted(vector, key=lambda x: x[1])
+
     def greedy_constructor(self):
         used = np.array([0]*len(self.weights))
         cap = self.capacities.copy()
