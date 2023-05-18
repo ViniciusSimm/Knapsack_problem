@@ -1,6 +1,6 @@
 import numpy as np
 from tools import Tools
-
+import random
 
 class Heuristic():
 
@@ -68,5 +68,21 @@ class Heuristic():
         
         return genetic_solutions
 
+    def mutation_genetic(self,vec,tool):
+        position_to_change = random.randint(0, len(vec)-1)
+        vec_alt = vec.copy()
+        vec_alt[position_to_change] = 1 - vec_alt[position_to_change]
+        if tool.check_constrains(used=vec_alt):
+            return vec_alt
+        else:
+            return vec
+
+    def prob_mutation(self,vec,tool,chance_of_mutation):
+        if random.random() < chance_of_mutation:
+            vec = self.mutation_genetic(vec=vec,tool=tool)
+        return vec
+
 # h = Heuristic()
-# h.combine_two_vectors([10,20,30,40,50,60,70],[11,22,33,44,55,66,77],3)
+
+
+# h.mutation_genetic([1,0,1,0,1,0,1])

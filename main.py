@@ -60,7 +60,7 @@ class Model():
             writer_object.writerow(List)
             f_object.close()    
 
-    def genetic(self,n_solutions,alpha,parts,n_genetic_output):
+    def genetic(self,n_solutions,alpha,parts,n_genetic_output,chance_of_mutation):
         start_time = time.time()
 
         genetic_solutions = []
@@ -74,6 +74,7 @@ class Model():
             best_current_solution = self.constructor.tuple_ordering(solution_list_results)[-1]
             print(best_current_solution)
             genetic_solutions = self.heuristic.create_neighbors_genetic(n_solutions=n_solutions,solution_list=solution_list,parts=parts,tool=self.tools)
+            genetic_solutions = [self.heuristic.prob_mutation(vec=i,tool=self.tools,chance_of_mutation=chance_of_mutation) for i in genetic_solutions]
             genetic_solutions_results = [(i,self.tools.evaluate(i)) for i in genetic_solutions]
             genetic_solutions_results = self.constructor.tuple_ordering(genetic_solutions_results)
             print(genetic_solutions_results)
@@ -119,13 +120,13 @@ class Model():
 
 
 if __name__ == "__main__":
-    # weing = [WEING1(),WEING2(),WEING3(),WEING4(),WEING5(),WEING6(),WEING7(),WEING8()]
-    # weish = [WEISH01(),WEISH02(),WEISH03(),WEISH04(),WEISH05(),WEISH06(),WEISH07(),WEISH08(),WEISH09(),WEISH10(),
-    #          WEISH11(),WEISH12(),WEISH13(),WEISH14(),WEISH15(),WEISH16(),WEISH17(),WEISH18(),WEISH19(),WEISH20(),
-    #          WEISH21(),WEISH22(),WEISH23(),WEISH24(),WEISH25(),WEISH26(),WEISH27(),WEISH28(),WEISH29(),WEISH30()]
-    # sento = [SENTO1(),SENTO2()]
-    # pb = [PB1(),PB2(),PB4(),PB5(),PB6(),PB7()]
-    # hp = [HP1(),HP2()]
+    weing = [WEING1(),WEING2(),WEING3(),WEING4(),WEING5(),WEING6(),WEING7(),WEING8()]
+    weish = [WEISH01(),WEISH02(),WEISH03(),WEISH04(),WEISH05(),WEISH06(),WEISH07(),WEISH08(),WEISH09(),WEISH10(),
+             WEISH11(),WEISH12(),WEISH13(),WEISH14(),WEISH15(),WEISH16(),WEISH17(),WEISH18(),WEISH19(),WEISH20(),
+             WEISH21(),WEISH22(),WEISH23(),WEISH24(),WEISH25(),WEISH26(),WEISH27(),WEISH28(),WEISH29(),WEISH30()]
+    sento = [SENTO1(),SENTO2()]
+    pb = [PB1(),PB2(),PB4(),PB5(),PB6(),PB7()]
+    hp = [HP1(),HP2()]
 
     # for data in hp:
     #     for i in range(3):
@@ -137,5 +138,17 @@ if __name__ == "__main__":
     #         model.GRASP(n_solutions=N_SOLUTIONS,alpha=ALPHA)
 
 
-    model = Model(WEING1())
-    model.genetic(n_solutions=6,alpha=0.6,parts=2,n_genetic_output=5)
+    # model = Model(WEING1())
+    # model.genetic(n_solutions=10,alpha=0.6,parts=2,n_genetic_output=5,chance_of_mutation=0.5)
+
+    for data in hp:
+        for i in range(3):
+            data = data
+            N_SOLUTIONS = 30 # number of vectors
+            ALPHA = 0.8 # proportion of 0s
+            PARTS = 2 # split gene
+            N_GENETIC_OUTPUT = 15 # many vectors kept from genetic approach
+            CHANCE_OF_MUTATION = 0.5 # probability of mutating a vector
+
+            model = Model(data)
+            model.genetic(n_solutions=N_SOLUTIONS,alpha=ALPHA,parts=PARTS,n_genetic_output=N_GENETIC_OUTPUT,chance_of_mutation=CHANCE_OF_MUTATION)
