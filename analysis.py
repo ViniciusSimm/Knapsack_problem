@@ -87,18 +87,18 @@ if __name__ == "__main__":
 
     print('MEAN')
 
-    df_c = analiser.group_df(['CONJUNTO','AMOSTRAS','PORCENTAGEM','PARTS'],'mean')
+    df_c = analiser.group_df(['CONJUNTO','AMOSTRAS','PORCENTAGEM','PARTS','CHANCE_OF_MUTATION'],'mean')
 
     df_c['ID'] = df_c['CONJUNTO'] + '-' + df_c['AMOSTRAS'].astype(str) + '-' + df_c['PORCENTAGEM'].astype(str)
-    df_o = analiser.occur_by_column(df_c,'PARTS','GAP')
-    df_o = df_o[df_o[4].notna()]
+    df_o = analiser.occur_by_column(df_c,'CHANCE_OF_MUTATION','GAP')
+    # df_o = df_o[df_o[4].notna()]
     print(df_o.to_markdown())
 
     analiser.plot_line(df_c,x='ID',y='GAP',hue='PARTS')
 
     df_c['ID'] = df_c['CONJUNTO'] + '-' + df_c['PORCENTAGEM'].astype(str) + '-' + df_c['PARTS'].astype(str)
     df_o = analiser.occur_by_column(df_c,'AMOSTRAS','GAP')
-    df_o = df_o[df_o[10].notna()]
+    # df_o = df_o[df_o[10].notna()]
     print(df_o.to_markdown())
 
     analiser.plot_line(df_c,x='ID',y='GAP',hue='AMOSTRAS')
@@ -109,14 +109,14 @@ if __name__ == "__main__":
 
     df_c['ID'] = df_c['CONJUNTO'] + '-' + df_c['AMOSTRAS'].astype(str) + '-' + df_c['PORCENTAGEM'].astype(str)
     df_o = analiser.occur_by_column(df_c,'PARTS','GAP')
-    df_o = df_o[df_o[4].notna()]
+    # df_o = df_o[df_o[4].notna()]
     print(df_o.to_markdown())
 
     analiser.plot_line(df_c,x='ID',y='GAP',hue='PARTS')
 
     df_c['ID'] = df_c['CONJUNTO'] + '-' + df_c['PORCENTAGEM'].astype(str) + '-' + df_c['PARTS'].astype(str)
     df_o = analiser.occur_by_column(df_c,'AMOSTRAS','GAP')
-    df_o = df_o[df_o[10].notna()]
+    # df_o = df_o[df_o[10].notna()]
     print(df_o.to_markdown())
 
     analiser.plot_line(df_c,x='ID',y='GAP',hue='AMOSTRAS')

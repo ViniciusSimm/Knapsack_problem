@@ -95,29 +95,9 @@ class Model():
 
         with open('genetic.csv', 'a') as f_object:
             writer_object = writer(f_object)
-            List = [self.data.name_data,n_solutions,alpha,best_vector,best_score,(self.data.optimum-best_score)/self.data.optimum,final_time-start_time,parts,n_genetic_output]
+            List = [self.data.name_data,n_solutions,alpha,best_vector,best_score,(self.data.optimum-best_score)/self.data.optimum,final_time-start_time,parts,n_genetic_output,chance_of_mutation]
             writer_object.writerow(List)
             f_object.close()
-
-        # a = 0
-        # while a < n_solutions:
-        #     b = a+1
-        #     while b < n_solutions:
-        #         print(str(a) + '-----' + str(b))
-        #         subv1,subv2 = self.heuristic.combine_two_vectors(vec1=solution_list[a],vec2=solution_list[b],parts=parts)
-
-        #         if self.tools.check_constrains(subv1):
-        #             genetic_solutions.append(subv1)
-                
-        #         if self.tools.check_constrains(subv2):
-        #             genetic_solutions.append(subv2)
-
-        #         b = b + 1
-        #     a = a + 1
-
-
-
-
 
 if __name__ == "__main__":
     weing = [WEING1(),WEING2(),WEING3(),WEING4(),WEING5(),WEING6(),WEING7(),WEING8()]
@@ -141,14 +121,15 @@ if __name__ == "__main__":
     # model = Model(WEING1())
     # model.genetic(n_solutions=10,alpha=0.6,parts=2,n_genetic_output=5,chance_of_mutation=0.5)
 
-    for data in hp:
-        for i in range(3):
+    for data in weing:
+        for i in range(5):
             data = data
-            N_SOLUTIONS = 50 # number of vectors
+            N_SOLUTIONS = 10 # number of vectors
             ALPHA = 0.8 # proportion of 0s
             PARTS = 2 # split gene
-            N_GENETIC_OUTPUT = 25 # many vectors kept from genetic approach
+            N_GENETIC_OUTPUT = 5 # many vectors kept from genetic approach
             CHANCE_OF_MUTATION = 0.5 # probability of mutating a vector
 
             model = Model(data)
             model.genetic(n_solutions=N_SOLUTIONS,alpha=ALPHA,parts=PARTS,n_genetic_output=N_GENETIC_OUTPUT,chance_of_mutation=CHANCE_OF_MUTATION)
+
