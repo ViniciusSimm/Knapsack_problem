@@ -141,7 +141,7 @@ if __name__ == "__main__":
     # model = Model(WEING1())
     # model.genetic(n_solutions=10,alpha=0.6,parts=2,n_genetic_output=5,chance_of_mutation=0.5)
 
-    for data in weish:
+    for data in hp:
         for i in range(3):
             data = data
             N_SOLUTIONS = 50 # number of vectors
