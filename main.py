@@ -141,13 +141,13 @@ if __name__ == "__main__":
     # model = Model(WEING1())
     # model.genetic(n_solutions=10,alpha=0.6,parts=2,n_genetic_output=5,chance_of_mutation=0.5)
 
-    for data in hp:
+    for data in weish:
         for i in range(3):
             data = data
-            N_SOLUTIONS = 30 # number of vectors
+            N_SOLUTIONS = 50 # number of vectors
             ALPHA = 0.8 # proportion of 0s
             PARTS = 2 # split gene
-            N_GENETIC_OUTPUT = 15 # many vectors kept from genetic approach
+            N_GENETIC_OUTPUT = 25 # many vectors kept from genetic approach
             CHANCE_OF_MUTATION = 0.5 # probability of mutating a vector
 
             model = Model(data)
