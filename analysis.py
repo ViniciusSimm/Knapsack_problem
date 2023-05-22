@@ -5,6 +5,7 @@ import matplotlib.pyplot as plt
 class Analyser():
     def __init__(self,df):
         self.df = df
+        self.data_groups = ['WEING','WEISH','SENTO','PB','HP']
     
     def group_df(self,list_of_columns,group_type):
         if group_type == 'mean':
@@ -22,101 +23,144 @@ class Analyser():
         plt.figure()
         sns.lineplot(df, x = x, y = y, hue = hue)
         plt.show()
+    
+    def plot_boxplot(self,df,conjunto,x,y,hue):
+        df = df[df['CONJUNTO'].str.contains(conjunto)]
+        plt.figure()
+        plt.title('{}_{}_{}'.format(x,y,hue))
+        sns.boxplot(df,x=x,y=y,hue=hue)
+        plt.show()
+    
+    def separate_plot_boxplot(self,columns_to_plot):
+        for conjunto in self.data_groups:
+            for col in columns_to_plot:
+                print('GAP x {}'.format(col))
+                self.plot_boxplot(conjunto=conjunto,df=self.df,y='CONJUNTO',x='GAP',hue=col)
+                print('GAP x {}'.format(col))
+                self.plot_boxplot(conjunto=conjunto,df=self.df,y='CONJUNTO',x='TIME',hue=col)
 
 
 if __name__ == "__main__":
+    data_groups = ['WEING','WEISH','SENTO','PB','HP']
+
     # ------------------------------------------------------------------------------------------------- GRASP
 
-    # df = pd.read_csv('GRASP.csv')
-    # analiser = Analyser(df)
-
-    # print('MEAN')
-
-    # df_c = analiser.group_df(['CONJUNTO','AMOSTRAS','PORCENTAGEM','VIZINHOS'],'mean')
-
-    # df_c['ID'] = df_c['CONJUNTO'] + '-' + df_c['AMOSTRAS'].astype(str) + '-' + df_c['PORCENTAGEM'].astype(str)
-    # df_o = analiser.occur_by_column(df_c,'VIZINHOS','GAP')
-    # df_o = df_o[df_o['3t'].notna()]
-    # print(df_o.to_markdown())
-
-    # analiser.plot_line(df_c,x='ID',y='GAP',hue='VIZINHOS')
-
-    # df_c['ID'] = df_c['CONJUNTO'] + '-' + df_c['AMOSTRAS'].astype(str) + '-' + df_c['VIZINHOS'].astype(str)
-    # df_o = analiser.occur_by_column(df_c,'PORCENTAGEM','GAP')
-    # df_o = df_o[df_o[0.9].notna()]
-    # print(df_o.to_markdown())
-
-    # analiser.plot_line(df_c,x='ID',y='GAP',hue='PORCENTAGEM')
-
-    # df_c['ID'] = df_c['CONJUNTO'] + '-' + df_c['PORCENTAGEM'].astype(str) + '-' + df_c['VIZINHOS'].astype(str)
-    # df_o = analiser.occur_by_column(df_c,'AMOSTRAS','GAP')
-    # df_o = df_o[df_o[10].notna()]
-    # print(df_o.to_markdown())
-
-    # analiser.plot_line(df_c,x='ID',y='GAP',hue='AMOSTRAS')
-
-    # print('BEST')
-
-    # df_c = analiser.group_df(['CONJUNTO','AMOSTRAS','PORCENTAGEM','VIZINHOS'],'min')
-
-    # df_c['ID'] = df_c['CONJUNTO'] + '-' + df_c['AMOSTRAS'].astype(str) + '-' + df_c['PORCENTAGEM'].astype(str)
-    # df_o = analiser.occur_by_column(df_c,'VIZINHOS','GAP')
-    # df_o = df_o[df_o['3t'].notna()]
-    # print(df_o.to_markdown())
-
-    # analiser.plot_line(df_c,x='ID',y='GAP',hue='VIZINHOS')
-
-    # df_c['ID'] = df_c['CONJUNTO'] + '-' + df_c['AMOSTRAS'].astype(str) + '-' + df_c['VIZINHOS'].astype(str)
-    # df_o = analiser.occur_by_column(df_c,'PORCENTAGEM','GAP')
-    # df_o = df_o[df_o[0.9].notna()]
-    # print(df_o.to_markdown())
-
-    # analiser.plot_line(df_c,x='ID',y='GAP',hue='PORCENTAGEM')
-
-    # df_c['ID'] = df_c['CONJUNTO'] + '-' + df_c['PORCENTAGEM'].astype(str) + '-' + df_c['VIZINHOS'].astype(str)
-    # df_o = analiser.occur_by_column(df_c,'AMOSTRAS','GAP')
-    # df_o = df_o[df_o[10].notna()]
-    # print(df_o.to_markdown())
-
-    # analiser.plot_line(df_c,x='ID',y='GAP',hue='AMOSTRAS')
-
-    # ------------------------------------------------------------------------------------------------- GA
-
-    df = pd.read_csv('genetic.csv')
+    df = pd.read_csv('GRASP.csv')
     analiser = Analyser(df)
+
+    analiser.separate_plot_boxplot(['VIZINHOS','AMOSTRAS'])
+
+    # for conjunto in data_groups:
+    #     print('GAP x VIZINHOS')
+    #     analiser.plot_boxplot(conjunto=conjunto,df=df,y='CONJUNTO',x='GAP',hue='VIZINHOS')
+    #     print('TIME x VIZINHOS')
+    #     analiser.plot_boxplot(conjunto=conjunto,df=df,y='CONJUNTO',x='TIME',hue='VIZINHOS')
+
+    #     print('GAP x AMOSTRAS')
+    #     analiser.plot_boxplot(conjunto=conjunto,df=df,y='CONJUNTO',x='GAP',hue='AMOSTRAS')
+    #     print('TIME x AMOSTRAS')
+    #     analiser.plot_boxplot(conjunto=conjunto,df=df,y='CONJUNTO',x='TIME',hue='AMOSTRAS')
 
     print('MEAN')
 
-    df_c = analiser.group_df(['CONJUNTO','AMOSTRAS','PORCENTAGEM','PARTS','CHANCE_OF_MUTATION'],'mean')
+    df_c = analiser.group_df(['CONJUNTO','AMOSTRAS','PORCENTAGEM','VIZINHOS'],'mean')
 
     df_c['ID'] = df_c['CONJUNTO'] + '-' + df_c['AMOSTRAS'].astype(str) + '-' + df_c['PORCENTAGEM'].astype(str)
-    df_o = analiser.occur_by_column(df_c,'CHANCE_OF_MUTATION','GAP')
-    # df_o = df_o[df_o[4].notna()]
+    df_o = analiser.occur_by_column(df_c,'VIZINHOS','GAP')
+    df_o = df_o[df_o['3t'].notna()]
     print(df_o.to_markdown())
 
-    analiser.plot_line(df_c,x='ID',y='GAP',hue='PARTS')
+    analiser.plot_line(df_c,x='ID',y='GAP',hue='VIZINHOS')
 
-    df_c['ID'] = df_c['CONJUNTO'] + '-' + df_c['PORCENTAGEM'].astype(str) + '-' + df_c['PARTS'].astype(str)
+    df_c['ID'] = df_c['CONJUNTO'] + '-' + df_c['AMOSTRAS'].astype(str) + '-' + df_c['VIZINHOS'].astype(str)
+    df_o = analiser.occur_by_column(df_c,'PORCENTAGEM','GAP')
+    df_o = df_o[df_o[0.9].notna()]
+    print(df_o.to_markdown())
+
+    analiser.plot_line(df_c,x='ID',y='GAP',hue='PORCENTAGEM')
+
+    df_c['ID'] = df_c['CONJUNTO'] + '-' + df_c['PORCENTAGEM'].astype(str) + '-' + df_c['VIZINHOS'].astype(str)
     df_o = analiser.occur_by_column(df_c,'AMOSTRAS','GAP')
-    # df_o = df_o[df_o[10].notna()]
+    df_o = df_o[df_o[10].notna()]
     print(df_o.to_markdown())
 
     analiser.plot_line(df_c,x='ID',y='GAP',hue='AMOSTRAS')
 
     print('BEST')
 
-    df_c = analiser.group_df(['CONJUNTO','AMOSTRAS','PORCENTAGEM','PARTS'],'min')
+    df_c = analiser.group_df(['CONJUNTO','AMOSTRAS','PORCENTAGEM','VIZINHOS'],'min')
 
     df_c['ID'] = df_c['CONJUNTO'] + '-' + df_c['AMOSTRAS'].astype(str) + '-' + df_c['PORCENTAGEM'].astype(str)
-    df_o = analiser.occur_by_column(df_c,'PARTS','GAP')
-    # df_o = df_o[df_o[4].notna()]
+    df_o = analiser.occur_by_column(df_c,'VIZINHOS','GAP')
+    df_o = df_o[df_o['3t'].notna()]
     print(df_o.to_markdown())
 
-    analiser.plot_line(df_c,x='ID',y='GAP',hue='PARTS')
+    analiser.plot_line(df_c,x='ID',y='GAP',hue='VIZINHOS')
 
-    df_c['ID'] = df_c['CONJUNTO'] + '-' + df_c['PORCENTAGEM'].astype(str) + '-' + df_c['PARTS'].astype(str)
+    df_c['ID'] = df_c['CONJUNTO'] + '-' + df_c['AMOSTRAS'].astype(str) + '-' + df_c['VIZINHOS'].astype(str)
+    df_o = analiser.occur_by_column(df_c,'PORCENTAGEM','GAP')
+    df_o = df_o[df_o[0.9].notna()]
+    print(df_o.to_markdown())
+
+    analiser.plot_line(df_c,x='ID',y='GAP',hue='PORCENTAGEM')
+
+    df_c['ID'] = df_c['CONJUNTO'] + '-' + df_c['PORCENTAGEM'].astype(str) + '-' + df_c['VIZINHOS'].astype(str)
     df_o = analiser.occur_by_column(df_c,'AMOSTRAS','GAP')
-    # df_o = df_o[df_o[10].notna()]
+    df_o = df_o[df_o[10].notna()]
     print(df_o.to_markdown())
 
     analiser.plot_line(df_c,x='ID',y='GAP',hue='AMOSTRAS')
+
+    # ------------------------------------------------------------------------------------------------- GA
+
+    # df = pd.read_csv('genetic.csv')
+    # analiser = Analyser(df)
+
+    # analiser.separate_plot_boxplot(['CHANCE_OF_MUTATION','AMOSTRAS'])
+
+    # for conjunto in data_groups:
+    #     print('GAP x CHANCE OF MUTATION')
+    #     analiser.plot_boxplot(conjunto=conjunto,df=df,y='CONJUNTO',x='GAP',hue='CHANCE_OF_MUTATION')
+    #     print('TIME x CHANCE OF MUTATION')
+    #     analiser.plot_boxplot(conjunto=conjunto,df=df,y='CONJUNTO',x='TIME',hue='CHANCE_OF_MUTATION')
+
+    #     print('GAP x AMOSTRAS')
+    #     analiser.plot_boxplot(conjunto=conjunto,df=df,y='CONJUNTO',x='GAP',hue='AMOSTRAS')
+    #     print('TIME x AMOSTRAS')
+    #     analiser.plot_boxplot(conjunto=conjunto,df=df,y='CONJUNTO',x='TIME',hue='AMOSTRAS')
+
+    # print('MEAN')
+
+    # df_c = analiser.group_df(['CONJUNTO','AMOSTRAS','PORCENTAGEM','PARTS','CHANCE_OF_MUTATION'],'mean')
+
+    # df_c['ID'] = df_c['CONJUNTO'] + '-' + df_c['AMOSTRAS'].astype(str) + '-' + df_c['PORCENTAGEM'].astype(str) + '-' + df_c['PARTS'].astype(str)
+    # df_o = analiser.occur_by_column(df_c,'CHANCE_OF_MUTATION','GAP')
+    # # df_o = df_o[df_o[4].notna()]
+    # print(df_o.to_markdown())
+
+    # analiser.plot_line(df_c,x='ID',y='GAP',hue='CHANCE_OF_MUTATION')
+
+    # df_c['ID'] = df_c['CONJUNTO'] + '-' + df_c['PORCENTAGEM'].astype(str) + '-' + df_c['PARTS'].astype(str) + '-' + df_c['CHANCE_OF_MUTATION'].astype(str)
+    # df_o = analiser.occur_by_column(df_c,'AMOSTRAS','GAP')
+    # # df_o = df_o[df_o[10].notna()]
+    # print(df_o.to_markdown())
+
+    # analiser.plot_line(df_c,x='ID',y='GAP',hue='AMOSTRAS')
+
+    # print('BEST')
+
+    # df_c = analiser.group_df(['CONJUNTO','AMOSTRAS','PORCENTAGEM','PARTS','N_GENETIC_OUTPUT','CHANCE_OF_MUTATION'],'min')
+
+    # df_c['ID'] = df_c['CONJUNTO'] + '-' + df_c['AMOSTRAS'].astype(str) + '-' + df_c['PORCENTAGEM'].astype(str) + '-' + df_c['PARTS'].astype(str)
+    # df_o = analiser.occur_by_column(df_c,'CHANCE_OF_MUTATION','GAP')
+    # # df_o = df_o[df_o[4].notna()]
+    # print(df_o.to_markdown())
+
+    # analiser.plot_line(df_c,x='ID',y='GAP',hue='CHANCE_OF_MUTATION')
+
+    # df_c['ID'] = df_c['CONJUNTO'] + '-' + df_c['PORCENTAGEM'].astype(str) + '-' + df_c['PARTS'].astype(str) + '-' + df_c['CHANCE_OF_MUTATION'].astype(str)
+    # df_o = analiser.occur_by_column(df_c,'AMOSTRAS','GAP')
+    # # df_o = df_o[df_o[10].notna()]
+    # print(df_o.to_markdown())
+
+    # analiser.plot_line(df_c,x='ID',y='GAP',hue='AMOSTRAS')
