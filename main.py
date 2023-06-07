@@ -33,7 +33,7 @@ class Model():
 
             used = sol.copy()
             s_current = self.tools.evaluate(used)
-            neighbors = self.heuristic.create_neighbors_2t(used)
+            neighbors = self.heuristic.create_neighbors_1t(used)
             random.shuffle(neighbors)
 
         
@@ -47,7 +47,7 @@ class Model():
                         used = n
                         s_current = s_proposed
 
-                        neighbors = self.heuristic.create_neighbors_2t(used)
+                        neighbors = self.heuristic.create_neighbors_1t(used)
                         random.shuffle(neighbors)
                         print('RESTART -----------------------------------')
 
@@ -123,7 +123,7 @@ if __name__ == "__main__":
     hp = [HP1(),HP2()]
 
     for data in hp:
-        for i in range(2):
+        for i in range(5):
             data = data
             N_SOLUTIONS = 1 # number of vectors
             ALPHA = 0.8 # proportion of 0s
