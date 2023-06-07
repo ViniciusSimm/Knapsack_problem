@@ -122,7 +122,7 @@ if __name__ == "__main__":
     pb = [PB1(),PB2(),PB4(),PB5(),PB6(),PB7()]
     hp = [HP1(),HP2()]
 
-    for data in weing:
+    for data in weish:
         for i in range(1):
             data = data
             N_SOLUTIONS = 1 # number of vectors
