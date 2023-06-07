@@ -122,10 +122,10 @@ if __name__ == "__main__":
     pb = [PB1(),PB2(),PB4(),PB5(),PB6(),PB7()]
     hp = [HP1(),HP2()]
 
-    for data in weing[:1]:
-        for i in range(1):
+    for data in weing:
+        for i in range(3):
             data = data
-            N_SOLUTIONS = 1 # number of vectors
+            N_SOLUTIONS = 3 # number of vectors
             ALPHA = 0.8 # proportion of 0s
 
             model = Model(data)
