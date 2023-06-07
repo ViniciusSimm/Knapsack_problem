@@ -33,7 +33,7 @@ class Model():
 
             used = sol.copy()
             s_current = self.tools.evaluate(used)
-            neighbors = self.heuristic.create_neighbors_3t(used)
+            neighbors = self.heuristic.create_neighbors_2t(used)
             random.shuffle(neighbors)
 
         
@@ -47,7 +47,7 @@ class Model():
                         used = n
                         s_current = s_proposed
 
-                        neighbors = self.heuristic.create_neighbors_3t(used)
+                        neighbors = self.heuristic.create_neighbors_2t(used)
                         random.shuffle(neighbors)
                         print('RESTART -----------------------------------')
 
@@ -70,7 +70,7 @@ class Model():
 
         with open('GRASP.csv', 'a') as f_object:
             writer_object = writer(f_object)
-            List = [self.data.name_data,n_solutions,alpha,lista_ordenada[0][0],lista_ordenada[0][1],(self.data.optimum-lista_ordenada[0][1])/self.data.optimum,final_time-start_time,'3t',len(self.data.weights),len(self.data.capacities),list_of_best_evaluations]
+            List = [self.data.name_data,n_solutions,alpha,lista_ordenada[0][0],lista_ordenada[0][1],(self.data.optimum-lista_ordenada[0][1])/self.data.optimum,final_time-start_time,'1t',len(self.data.weights),len(self.data.capacities),list_of_best_evaluations]
             writer_object.writerow(List)
             f_object.close()    
 
@@ -122,8 +122,8 @@ if __name__ == "__main__":
     pb = [PB1(),PB2(),PB4(),PB5(),PB6(),PB7()]
     hp = [HP1(),HP2()]
 
-    for data in weing:
-        for i in range(1):
+    for data in hp:
+        for i in range(2):
             data = data
             N_SOLUTIONS = 1 # number of vectors
             ALPHA = 0.8 # proportion of 0s
