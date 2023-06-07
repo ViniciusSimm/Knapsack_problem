@@ -123,9 +123,9 @@ if __name__ == "__main__":
     hp = [HP1(),HP2()]
 
     for data in weing:
-        for i in range(3):
+        for i in range(1):
             data = data
-            N_SOLUTIONS = 3 # number of vectors
+            N_SOLUTIONS = 1 # number of vectors
             ALPHA = 0.8 # proportion of 0s
 
             model = Model(data)
