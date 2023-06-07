@@ -41,7 +41,6 @@ class Analyser():
 
 
 if __name__ == "__main__":
-    data_groups = ['WEING','WEISH','SENTO','PB','HP']
 
     # ------------------------------------------------------------------------------------------------- GRASP
 
@@ -49,17 +48,6 @@ if __name__ == "__main__":
     analiser = Analyser(df)
 
     analiser.separate_plot_boxplot(['VIZINHOS','AMOSTRAS'])
-
-    # for conjunto in data_groups:
-    #     print('GAP x VIZINHOS')
-    #     analiser.plot_boxplot(conjunto=conjunto,df=df,y='CONJUNTO',x='GAP',hue='VIZINHOS')
-    #     print('TIME x VIZINHOS')
-    #     analiser.plot_boxplot(conjunto=conjunto,df=df,y='CONJUNTO',x='TIME',hue='VIZINHOS')
-
-    #     print('GAP x AMOSTRAS')
-    #     analiser.plot_boxplot(conjunto=conjunto,df=df,y='CONJUNTO',x='GAP',hue='AMOSTRAS')
-    #     print('TIME x AMOSTRAS')
-    #     analiser.plot_boxplot(conjunto=conjunto,df=df,y='CONJUNTO',x='TIME',hue='AMOSTRAS')
 
     print('MEAN')
 
@@ -117,17 +105,6 @@ if __name__ == "__main__":
     # analiser = Analyser(df)
 
     # analiser.separate_plot_boxplot(['CHANCE_OF_MUTATION','AMOSTRAS'])
-
-    # for conjunto in data_groups:
-    #     print('GAP x CHANCE OF MUTATION')
-    #     analiser.plot_boxplot(conjunto=conjunto,df=df,y='CONJUNTO',x='GAP',hue='CHANCE_OF_MUTATION')
-    #     print('TIME x CHANCE OF MUTATION')
-    #     analiser.plot_boxplot(conjunto=conjunto,df=df,y='CONJUNTO',x='TIME',hue='CHANCE_OF_MUTATION')
-
-    #     print('GAP x AMOSTRAS')
-    #     analiser.plot_boxplot(conjunto=conjunto,df=df,y='CONJUNTO',x='GAP',hue='AMOSTRAS')
-    #     print('TIME x AMOSTRAS')
-    #     analiser.plot_boxplot(conjunto=conjunto,df=df,y='CONJUNTO',x='TIME',hue='AMOSTRAS')
 
     # print('MEAN')
 

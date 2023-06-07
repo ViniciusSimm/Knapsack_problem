@@ -22,19 +22,25 @@ class Model():
     def GRASP(self,n_solutions,alpha):
         start_time = time.time()
 
+        list_of_best_evaluations = [0]
+
         print(self.data.name_data)
         solution_list = self.constructor.random_constructor(n_solutions=n_solutions,alpha=alpha)
         local_optimas = []
         for sol in solution_list:
+
+            list_of_sol_evaluation = []
+
             used = sol.copy()
             s_current = self.tools.evaluate(used)
             neighbors = self.heuristic.create_neighbors_3t(used)
             random.shuffle(neighbors)
 
-            # print("Random Start Solution: {} \nCost: {}".format(used,s_current))
-
-            for i in range(len(neighbors)):
-                n = neighbors[i]
+        
+            while neighbors:
+            # for i in range(len(neighbors)):
+                print(len(neighbors))
+                n = neighbors.pop(0)
                 if self.tools.check_constrains(n):
                     s_proposed = self.tools.evaluate(n)
                     if s_proposed > s_current:
@@ -43,11 +49,19 @@ class Model():
 
                         neighbors = self.heuristic.create_neighbors_3t(used)
                         random.shuffle(neighbors)
-                        i = 0
+                        print('RESTART -----------------------------------')
+
+                list_of_sol_evaluation.append(s_current)
+            
+
+            if list_of_sol_evaluation[-1] > list_of_best_evaluations[-1]:
+                list_of_best_evaluations = list_of_sol_evaluation
+
 
             print("Random Start Solution: {} \nCost: {}".format(used,s_current))
             local_optimas.append((used,s_current))
-        
+
+
         lista_ordenada = sorted(local_optimas, key=lambda x: x[1], reverse=True)
         # print(lista_ordenada)
         # print(self.data.optimum)
@@ -56,7 +70,7 @@ class Model():
 
         with open('GRASP.csv', 'a') as f_object:
             writer_object = writer(f_object)
-            List = [self.data.name_data,n_solutions,alpha,lista_ordenada[0][0],lista_ordenada[0][1],(self.data.optimum-lista_ordenada[0][1])/self.data.optimum,final_time-start_time,'3t']
+            List = [self.data.name_data,n_solutions,alpha,lista_ordenada[0][0],lista_ordenada[0][1],(self.data.optimum-lista_ordenada[0][1])/self.data.optimum,final_time-start_time,'3t',len(self.data.weights),len(self.data.capacities),list_of_best_evaluations]
             writer_object.writerow(List)
             f_object.close()    
 
@@ -108,28 +122,28 @@ if __name__ == "__main__":
     pb = [PB1(),PB2(),PB4(),PB5(),PB6(),PB7()]
     hp = [HP1(),HP2()]
 
-    # for data in hp:
-    #     for i in range(3):
-    #         data = data
-    #         N_SOLUTIONS = 5 # number of vectors
-    #         ALPHA = 0.8 # proportion of 0s
+    for data in weing[:1]:
+        for i in range(1):
+            data = data
+            N_SOLUTIONS = 1 # number of vectors
+            ALPHA = 0.8 # proportion of 0s
 
-    #         model = Model(data)
-    #         model.GRASP(n_solutions=N_SOLUTIONS,alpha=ALPHA)
+            model = Model(data)
+            model.GRASP(n_solutions=N_SOLUTIONS,alpha=ALPHA)
 
 
     # model = Model(WEING1())
     # model.genetic(n_solutions=10,alpha=0.6,parts=2,n_genetic_output=5,chance_of_mutation=0.5)
 
-    for data in hp:
-        for i in range(5):
-            data = data
-            N_SOLUTIONS = 30 # number of vectors
-            ALPHA = 0.8 # proportion of 0s
-            PARTS = 2 # split gene
-            N_GENETIC_OUTPUT = 15 # many vectors kept from genetic approach
-            CHANCE_OF_MUTATION = 0.8 # probability of mutating a vector
+    # for data in hp:
+    #     for i in range(5):
+    #         data = data
+    #         N_SOLUTIONS = 30 # number of vectors
+    #         ALPHA = 0.8 # proportion of 0s
+    #         PARTS = 2 # split gene
+    #         N_GENETIC_OUTPUT = 15 # many vectors kept from genetic approach
+    #         CHANCE_OF_MUTATION = 0.8 # probability of mutating a vector
 
-            model = Model(data)
-            model.genetic(n_solutions=N_SOLUTIONS,alpha=ALPHA,parts=PARTS,n_genetic_output=N_GENETIC_OUTPUT,chance_of_mutation=CHANCE_OF_MUTATION)
+    #         model = Model(data)
+    #         model.genetic(n_solutions=N_SOLUTIONS,alpha=ALPHA,parts=PARTS,n_genetic_output=N_GENETIC_OUTPUT,chance_of_mutation=CHANCE_OF_MUTATION)
 

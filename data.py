@@ -2,7 +2,7 @@ import numpy as np
 
 class Data():
     def convert_text_to_list_of_lists(self,text,size_each_list):
-        print(len(text.split()))
+        # print(len(text.split()))
         n = size_each_list
         megalist = []
         littlelist = []
@@ -34,23 +34,24 @@ class Data():
 
 #         self.optimum = 0
 
-class WEING1():
-    name_data = "WEING1"
+class WEING1(Data):
+    def __init__(self):
+        self.name_data = "WEING1"
 
-    weights = [1898, 440, 22507, 270, 14148, 3100, 4650, 30800, 615, 4975, 
-            1160, 4225, 510, 11880, 479, 440, 490, 330, 110, 560, 
-            24355, 2885, 11748, 4550, 750, 3720, 1950, 10500]
+        self.weights = [1898, 440, 22507, 270, 14148, 3100, 4650, 30800, 615, 4975, 
+                1160, 4225, 510, 11880, 479, 440, 490, 330, 110, 560, 
+                24355, 2885, 11748, 4550, 750, 3720, 1950, 10500]
 
-    weights = np.array(weights)
+        self.weights = np.array(self.weights)
 
-    capacities = [600,600]
-    capacities = np.array(capacities)
+        self.capacities = [600,600]
+        self.capacities = np.array(self.capacities)
 
-    rest1 = [45, 0, 85, 150, 65, 95, 30, 0, 170, 0, 40, 25, 20, 0, 0, 25, 0, 0, 25, 0, 165, 0, 85, 0, 0, 0, 0, 100]
-    rest2 = [30, 20, 125, 5, 80, 25, 35, 73, 12, 15, 15, 40, 5, 10, 10, 12, 10, 9, 0, 20, 60, 40, 50, 36, 49, 40, 19, 150]
-    rest = np.array([rest1,rest2])
+        self.rest1 = [45, 0, 85, 150, 65, 95, 30, 0, 170, 0, 40, 25, 20, 0, 0, 25, 0, 0, 25, 0, 165, 0, 85, 0, 0, 0, 0, 100]
+        self.rest2 = [30, 20, 125, 5, 80, 25, 35, 73, 12, 15, 15, 40, 5, 10, 10, 12, 10, 9, 0, 20, 60, 40, 50, 36, 49, 40, 19, 150]
+        self.rest = np.array([self.rest1,self.rest2])
 
-    optimum = 141278
+        self.optimum = 141278
 
 
 
@@ -2781,3 +2782,19 @@ class HP2(Data):
         self.rest = np.array(self.convert_text_to_list_of_lists(self.rest,len(self.weights))).astype(int)
 
         self.optimum = 3186
+
+
+if __name__ == "__main__":
+    # weing = [WEING1(),WEING2(),WEING3(),WEING4(),WEING5(),WEING6(),WEING7(),WEING8()]
+    # weish = [WEISH01(),WEISH02(),WEISH03(),WEISH04(),WEISH05(),WEISH06(),WEISH07(),WEISH08(),WEISH09(),WEISH10(),
+    #          WEISH11(),WEISH12(),WEISH13(),WEISH14(),WEISH15(),WEISH16(),WEISH17(),WEISH18(),WEISH19(),WEISH20(),
+    #          WEISH21(),WEISH22(),WEISH23(),WEISH24(),WEISH25(),WEISH26(),WEISH27(),WEISH28(),WEISH29(),WEISH30()]
+    # sento = [SENTO1(),SENTO2()]
+    # pb = [PB1(),PB2(),PB4(),PB5(),PB6(),PB7()]
+    hp = [HP1(),HP2()]
+
+    for item in hp:
+
+        print(item.name_data)
+        print('WEIGHT',len(item.weights))
+        print('CAPACITIES',len(item.capacities))
