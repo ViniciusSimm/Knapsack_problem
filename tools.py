@@ -19,3 +19,9 @@ class Tools():
         mult = np.multiply(self.weights,used)
         sum = np.sum(mult)
         return sum
+
+    def transform_list(self,current_list,best):
+        new_list = []
+        for i in current_list:
+            new_list.append((best-i)/best)
+        return new_list
