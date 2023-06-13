@@ -61,12 +61,12 @@ if __name__ == "__main__":
 
     df = pd.read_csv('GRASP.csv')
     analiser = Analyser(df)
-    analiser.filter_data(df,'WEING','time')
+    analiser.filter_data(df,'WEISH','gap')
 
 
     # df_best = analiser.best_data()
     # for data_group in analiser.data_groups:
-    #     for vizinho in ['1t','2t','3t']:
+    #     for vizinho in ['1t','2t']:
     #         data = df_best[df_best['CONJUNTO'].str.contains(data_group)]
     #         data = data[data['VIZINHOS'].str.contains(vizinho)]
     #         for index,information in data.iterrows():
