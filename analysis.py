@@ -25,6 +25,8 @@ class Analyser():
         return sns.boxplot(dataset, y = 'CONJUNTO', x = 'GAP', hue = 'VIZINHOS')
     
     def boxplot_time(self,dataset):
+        a = plt.figure()
+        plt.xscale('log')
         return sns.boxplot(dataset, y = 'CONJUNTO', x = 'TIME', hue = 'VIZINHOS')
 
     def best_data(self):
@@ -61,7 +63,7 @@ if __name__ == "__main__":
 
     df = pd.read_csv('GRASP.csv')
     analiser = Analyser(df)
-    analiser.filter_data(df,'WEISH','gap')
+    analiser.filter_data(df,'WEING','time')
 
 
     # df_best = analiser.best_data()
