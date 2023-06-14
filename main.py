@@ -122,8 +122,8 @@ if __name__ == "__main__":
     pb = [PB1(),PB2(),PB4(),PB5(),PB6(),PB7()]
     hp = [HP1(),HP2()]
 
-    for data in weish[20:]:
-        for i in range(1):
+    for data in hp:
+        for i in range(2):
             data = data
             N_SOLUTIONS = 1 # number of vectors
             ALPHA = 0.8 # proportion of 0s

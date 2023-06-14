@@ -63,7 +63,7 @@ if __name__ == "__main__":
 
     df = pd.read_csv('GRASP.csv')
     analiser = Analyser(df)
-    analiser.filter_data(df,'WEING','time')
+    analiser.filter_data(df,'HP','gap')
 
 
     # df_best = analiser.best_data()
