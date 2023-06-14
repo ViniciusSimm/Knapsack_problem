@@ -86,12 +86,12 @@ class Model():
             # print(solution_list)
             solution_list_results = [(i,self.tools.evaluate(i)) for i in solution_list]
             best_current_solution = self.constructor.tuple_ordering(solution_list_results)[-1]
-            print(best_current_solution)
+            # print(best_current_solution)
             genetic_solutions = self.heuristic.create_neighbors_genetic(n_solutions=n_solutions,solution_list=solution_list,parts=parts,tool=self.tools)
             genetic_solutions = [self.heuristic.prob_mutation(vec=i,tool=self.tools,chance_of_mutation=chance_of_mutation) for i in genetic_solutions]
             genetic_solutions_results = [(i,self.tools.evaluate(i)) for i in genetic_solutions]
             genetic_solutions_results = self.constructor.tuple_ordering(genetic_solutions_results)
-            print(genetic_solutions_results)
+            # print(genetic_solutions_results)
             
             if genetic_solutions_results[-1][1] <= best_current_solution[1]:
                 end_indicator = False
@@ -123,7 +123,7 @@ if __name__ == "__main__":
     hp = [HP1(),HP2()]
 
     for data in hp:
-        for i in range(2):
+        for i in range(3):
             data = data
             N_SOLUTIONS = 1 # number of vectors
             ALPHA = 0.8 # proportion of 0s

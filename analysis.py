@@ -48,12 +48,16 @@ class Analyser():
             plt.savefig('output_images/boxplot_time_{}.png'.format(filter_dataset))
 
     def plot_vector(self,vetor,label):
-        return plt.plot(vetor,label=label)
+        eixo_y = [float(i) for i in vetor]
+        eixo_x = list(range(len(eixo_y)))
+        # return plt.plot(vetor,label=label)
+        return sns.lineplot(x=eixo_x, y=eixo_y, label=label)
         
     def plot_many_vectors(self,data):
         for d in data:
             vector,label = d
             self.plot_vector(vector,label)
+        plt.ylim(0, 1)
         plt.legend()
         plt.show()
 
@@ -63,18 +67,20 @@ if __name__ == "__main__":
 
     df = pd.read_csv('GRASP.csv')
     analiser = Analyser(df)
-    analiser.filter_data(df,'HP','gap')
+
+    
+    # analiser.filter_data(df,'HP','gap')
 
 
-    # df_best = analiser.best_data()
-    # for data_group in analiser.data_groups:
-    #     for vizinho in ['1t','2t']:
-    #         data = df_best[df_best['CONJUNTO'].str.contains(data_group)]
-    #         data = data[data['VIZINHOS'].str.contains(vizinho)]
-    #         for index,information in data.iterrows():
-    #             # print(information['VETOR'])
-    #             # print(information['PROGRESSAO_CUSTO'].strip('][').split(','))
-    #             analiser.plot_vector(information['PROGRESSAO_CUSTO'].strip('][').split(','),information['CONJUNTO'])
-    #         plt.legend()
-    #         plt.show()
+    df_best = analiser.best_data()
+    for data_group in analiser.data_groups:
+        for vizinho in ['1t','2t','3t']:
+            data = df_best[df_best['CONJUNTO'].str.contains(data_group)]
+            data = data[data['VIZINHOS'].str.contains(vizinho)]
+            for index,information in data.iterrows():
+                # print(information['VETOR'])
+                # print(information['PROGRESSAO_CUSTO'].strip('][').split(','))
+                analiser.plot_vector(information['PROGRESSAO_CUSTO'].strip('][').split(','),information['CONJUNTO'])
+            plt.legend()
+            plt.show()
 
