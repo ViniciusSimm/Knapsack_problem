@@ -71,6 +71,7 @@ class Model():
         with open('GRASP.csv', 'a') as f_object:
             writer_object = writer(f_object)
             List = [self.data.name_data,n_solutions,alpha,lista_ordenada[0][0],lista_ordenada[0][1],(self.data.optimum-lista_ordenada[0][1])/self.data.optimum,final_time-start_time,'3t',len(self.data.weights),len(self.data.capacities),self.tools.transform_list(list_of_best_evaluations,self.data.optimum)]
+            print(List)
             writer_object.writerow(List)
             f_object.close()    
 
