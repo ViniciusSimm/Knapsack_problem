@@ -68,24 +68,26 @@ if __name__ == "__main__":
     df = pd.read_csv('GRASP.csv')
     analiser = Analyser(df)
 
-    analiser.group_data('min')[['CONJUNTO','VIZINHOS','GAP']].to_csv('GRASP_min.csv')
-    # analiser.filter_data(df,'HP','gap')
+    # analiser.group_data('min')[['CONJUNTO','VIZINHOS','GAP']].to_csv('GRASP_min.csv')
 
+    # SALVAR IMAGENS
+    analiser.filter_data(df,'HP','gap')
 
-    # df_best = analiser.best_data()
-    # for data_group in analiser.data_groups:
-    #     for vizinho in ['1t','2t','3t']:
-    #         plt.figure()
-    #         data = df_best[df_best['CONJUNTO'].str.contains(data_group)]
-    #         data = data[data['VIZINHOS'].str.contains(vizinho)]
+    # SALVAR LINHAS DE PROGRESSAO
+    df_best = analiser.best_data()
+    for data_group in analiser.data_groups:
+        for vizinho in ['1t','2t','3t']:
+            plt.figure()
+            data = df_best[df_best['CONJUNTO'].str.contains(data_group)]
+            data = data[data['VIZINHOS'].str.contains(vizinho)]
 
-    #         title = 'conjunto: {} vizinhos: {}'.format(data_group,vizinho)
-    #         for index,information in data.iterrows():
-    #             # print(information['VETOR'])
-    #             # print(information['PROGRESSAO_CUSTO'].strip('][').split(','))
-    #             analiser.plot_vector(information['PROGRESSAO_CUSTO'].strip('][').split(','),information['CONJUNTO'])
-    #         plt.title(title)
-    #         plt.legend()
-    #         plt.savefig('output_images/lineplot_gap_{}_{}'.format(data_group,vizinho))
-    #         # plt.show()
+            title = 'conjunto: {} vizinhos: {}'.format(data_group,vizinho)
+            for index,information in data.iterrows():
+                # print(information['VETOR'])
+                # print(information['PROGRESSAO_CUSTO'].strip('][').split(','))
+                analiser.plot_vector(information['PROGRESSAO_CUSTO'].strip('][').split(','),information['CONJUNTO'])
+            plt.title(title)
+            plt.legend()
+            plt.savefig('output_images/lineplot_gap_{}_{}'.format(data_group,vizinho))
+
 
